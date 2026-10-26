@@ -139,7 +139,7 @@ definitions currently group by transport as follows:
 | Stream format | Runtime ids |
 |---|---|
 | `claude-stream-json` | `claude`, `amp`, `codebuddy` |
-| `json-event-stream` | `codex`, `cursor-agent`, `opencode`, `mimo`, `byok-opencode` |
+| `json-event-stream` | `codex`, `genie`, `cursor-agent`, `opencode`, `mimo`, `byok-opencode` |
 | `copilot-stream-json` | `copilot` |
 | `qoder-stream-json` | `qoder` |
 | `acp-json-rpc` | `amr` (Vela), `devin`, `hermes`, `kimi`, `kiro`, `kilo`, `reasonix`, `trae-cli`, `vibe` |
@@ -257,7 +257,17 @@ authentication, and the boundary between REST and MCP.
   shared composition/staging path in §4 rather than version-gated loading from
   `~/.codex/skills/`.
 
-### 5.4 Devin for Terminal
+### 5.4 Genie CLI
+
+- **Differentiator:** Genie is Databricks' data-grounded coding agent. Unlike general-purpose coding CLIs, Genie can query and reason over enterprise data in the Databricks platform — tables, dashboards, Unity Catalog assets — and ground generated code and designs in real data rather than synthetic examples. This makes it the natural choice when the artifact being designed must reflect actual business data or analytics outputs.
+- Genie is a fork of Codex: `genie exec --json` emits the same JSONL event stream (`thread.started` / `turn.started` / `item.*` / `turn.completed`), so the adapter reuses the `json-event-stream` parser, capture-style session resume, and the `codex` event parser — no new wire format.
+- Invocation: `genie exec --json --skip-git-repo-check [--sandbox <mode>] [-C <cwd>]` for new turns; `genie exec --json --skip-git-repo-check resume <thread-id>` for follow-up turns. The composed prompt is delivered over stdin (`promptViaStdin: true`).
+- **Model config:** Genie does not accept `--model` on argv. The active model and provider are read from the user's own `~/.genie/config.toml`. Select a model there before starting a session.
+- Resume: capture-style — the `thread.started.thread_id` value from the create turn is captured and replayed as the positional `<thread-id>` on `exec resume`. This is the same mechanism as Codex `exec-json`.
+- Skills use the shared §4 composition and staging path.
+- **Gotcha:** Detection only proves `genie --version` can run. Genie owns login, Databricks workspace auth, and model entitlement; the daemon does not run login flows or edit Genie configuration.
+
+### 5.5 Devin for Terminal
 
 - Invocation: `devin --permission-mode dangerous --respect-workspace-trust false acp`.
 - Install/update: macOS/Linux/WSL users can install with `curl -fsSL https://cli.devin.ai/install.sh | bash`; run `devin update` for existing installs.
@@ -268,7 +278,7 @@ authentication, and the boundary between REST and MCP.
 - Surgical edits: Devin's own edit/write tools handle targeted changes.
 - Permission: `--permission-mode dangerous` avoids headless approval prompts in the web UI; `--respect-workspace-trust false` ensures Devin doesn't block on trust prompts for newly created project dirs. Org/team-level policies still apply inside Devin.
 
-### 5.5 Cursor Agent
+### 5.6 Cursor Agent
 
 - Invocation uses `cursor-agent --print --output-format stream-json
   --stream-partial-output --force`, capability-gated `--trust`,
@@ -283,7 +293,7 @@ authentication, and the boundary between REST and MCP.
   `--trust` are part of the non-interactive authority posture described in
   §10, not a filesystem sandbox supplied by OpenDesign.
 
-### 5.6 OpenCode
+### 5.7 OpenCode
 
 - OpenCode runs as `opencode run --format json` with the prompt on stdin.
   Newer builds that advertise `--dangerously-skip-permissions` from
@@ -295,7 +305,7 @@ authentication, and the boundary between REST and MCP.
 - External MCP configuration is supplied per invocation through
   `OPENCODE_CONFIG_CONTENT`; selected skills still use the shared §4 path.
 
-### 5.7 GitHub Copilot CLI
+### 5.8 GitHub Copilot CLI
 
 - Invocation is `copilot --allow-all-tools --output-format json` with optional
   model and repeated `--add-dir` arguments. The daemon omits `-p` entirely and
@@ -310,7 +320,7 @@ authentication, and the boundary between REST and MCP.
 - Copilot declares no proactive `authProbe`; detection proves that the binary
   is invocable, while login and account scope remain owned by the CLI.
 
-### 5.8 Qoder CLI
+### 5.9 Qoder CLI
 
 - Invocation is `qodercli -p --output-format stream-json --yolo -w
   <project-cwd>` with optional model, repeated absolute `--add-dir`, and one
@@ -328,7 +338,7 @@ authentication, and the boundary between REST and MCP.
   `QODER_PERSONAL_ACCESS_TOKEN` is outside daemon management. Run failures are
   surfaced instead of triggering a daemon login flow.
 
-### 5.9 Trae CLI
+### 5.10 Trae CLI
 
 - Invocation: `traecli acp serve --yolo`, using the daemon's shared ACP JSON-RPC transport. The adapter follows Trae CLI's public ACP entrypoint documented at https://www.volcengine.com/docs/86677/2227861?lang=zh.
 - Streaming: `acp-json-rpc`; the daemon uses the same ACP event path as the other ACP-backed adapters.
@@ -337,7 +347,7 @@ authentication, and the boundary between REST and MCP.
 - Permission: `--yolo` avoids headless approval prompts in the web UI. This follows the adapter catalog's existing non-interactive permission posture for CLIs such as Devin, Copilot, Qoder, and DeepSeek: the daemon runs agent CLIs without a TTY, so it must not rely on an interactive tool-approval prompt to make progress.
 - **Gotcha:** Detection only proves `traecli --version` and model discovery can run in the current environment. Trae CLI owns login, account scope, and model entitlement; the daemon does not run login flows or edit Trae CLI configuration.
 
-### 5.10 Pi
+### 5.11 Pi
 
 - Invocation: `pi --mode rpc [--model <id>] [--thinking <level>] [--append-system-prompt <dir> …]`, with the composed prompt delivered over stdin via JSON-RPC. The daemon sends a `prompt` command (optionally with `images` for multimodal input) and pi streams back typed events until `agent_end`. Pi's RPC process stays alive after `agent_end` (designed for multi-prompt sessions); the daemon closes stdin and SIGTERMs after a grace period since `/api/chat` is single-shot.
 - Streaming: `pi-rpc` JSON-RPC over stdio. Events include `agent_start`, `turn_start/end`, `message_update` (text deltas, thinking deltas, tool calls), `tool_execution_start/end`, `compaction_start`, `auto_retry_start/end`, and `extension_error`. `apps/daemon/src/agent-protocol/pi-rpc/session.ts` maps them into the shared UI event stream. Errors from `extension_error` and exhausted `auto_retry_end` go through the daemon's normal stream-error and empty-output handling.
@@ -355,7 +365,7 @@ authentication, and the boundary between REST and MCP.
 - Extension UI: auto-resolved. pi's RPC protocol can request user dialogs (`select`, `confirm`, `input`, `editor`) and fire-and-forget notifications (`setStatus`, `setWidget`, `notify`, `setTitle`, `set_editor_text`). Dialog methods are auto-approved (confirm → true, select → first option) and fire-and-forget methods are silently consumed because the web UI has no surface for them.
 - **Gotcha:** pi's RPC `prompt` response is asynchronous — `success: true` only means the prompt was accepted, not that the agent finished. Agent failures after acceptance surface through the normal event stream (`extension_error`, `auto_retry_end` with `success: false`) and the empty-output guard.
 
-### 5.11 DeepSeek TUI
+### 5.12 DeepSeek TUI
 
 - Invocation is `deepseek exec --auto [--model <id>] "<prompt>"` through the
   dispatcher. `codewhale` is an argv-compatible fallback binary after the
@@ -373,7 +383,7 @@ authentication, and the boundary between REST and MCP.
   shared failure classifier emits DeepSeek-specific guidance for those two
   configuration paths instead of returning the raw non-actionable error.
 
-### 5.12 DeepSeek Harness
+### 5.13 DeepSeek Harness
 
 - OpenDesign launches the user's official `dsh` installation; it does not
   bundle Harness or Node. Install the tested DSH release first and use
@@ -436,7 +446,7 @@ authentication, and the boundary between REST and MCP.
   may expose its own reasoning-effort choices; OD validates and forwards only
   one of the choices advertised for that selected model.
 
-### 5.13 Plain stream artifact handoff
+### 5.14 Plain stream artifact handoff
 
 Adapters with `streamFormat: 'plain'` do not expose structured file-write tool calls to the daemon. Their stdout is still a valid artifact handoff when the model emits Anthropic-style source blocks:
 
