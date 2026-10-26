@@ -1060,6 +1060,13 @@ export interface Dict {
   'settings.mcpCodexUninstallSuccess': string;
   'settings.mcpCodexBusy': string;
   'settings.mcpCodexInstallError': string;
+  'settings.mcpGenieOneClickInstall': string;
+  'settings.mcpGenieOneClickUninstall': string;
+  'settings.mcpGenieOneClickUnavailable': string;
+  'settings.mcpGenieInstallSuccess': string;
+  'settings.mcpGenieUninstallSuccess': string;
+  'settings.mcpGenieBusy': string;
+  'settings.mcpGenieInstallError': string;
   'settings.mcpRestartNote': string;
   'settings.mcpRestartDetail': string;
   'settings.mcpCapabilitiesTitle': string;

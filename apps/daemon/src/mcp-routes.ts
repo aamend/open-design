@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { SIDECAR_ENV } from '@open-design/sidecar-proto';
 import { buildMcpInstallPayload, type McpInstallPayload } from './mcp-install-info.js';
 import { installCodexMcp, probeCodexInstall, refreshOwnedCodexMcp, uninstallCodexMcp } from './codex-cli.js';
+import { installGenieMcp, probeGenieInstall, uninstallGenieMcp } from './genie-cli.js';
 import { isManagedMcpBootstrapEnv } from './mcp-bootstrap.js';
 import { isCodexRegistrationOwnedBy, managedMcpRegistrationEnv } from './mcp-managed-registration.js';
 import { MCP_TEMPLATES, buildAcpMcpServers, buildClaudeMcpJson, isManagedProjectCwd, readMcpConfig, writeMcpConfig } from './mcp-config.js';
@@ -181,6 +182,51 @@ export function registerMcpRoutes(app: Express, ctx: RegisterMcpRoutesDeps) {
       res.json({ ok: true });
     } catch (err) {
       sendApiError(res, 500, 'CODEX_UNINSTALL_FAILED', err instanceof Error ? err.message : String(err));
+    }
+  });
+
+  app.get('/api/mcp/install/genie/status', async (req, res) => {
+    if (!isLocalSameOrigin(req, getResolvedPort())) {
+      return res.status(403).json({ error: 'cross-origin request rejected' });
+    }
+    try {
+      const status = await probeGenieInstall(CODEX_MCP_NAME);
+      res.json(status);
+    } catch (err) {
+      sendApiError(res, 500, 'GENIE_PROBE_FAILED', err instanceof Error ? err.message : String(err));
+    }
+  });
+
+  app.post('/api/mcp/install/genie', async (req, res) => {
+    if (!isLocalSameOrigin(req, getResolvedPort())) {
+      return res.status(403).json({ error: 'cross-origin request rejected' });
+    }
+    const payload = computeInstallPayload();
+    if (!payload.cliExists || !payload.nodeExists) {
+      return sendApiError(res, 500, 'INSTALL_INFO_INCOMPLETE', payload.buildHint ?? 'install payload not ready');
+    }
+    try {
+      await installGenieMcp({
+        name: CODEX_MCP_NAME,
+        command: payload.command,
+        args: payload.args,
+        env: payload.env,
+      });
+      res.json({ ok: true });
+    } catch (err) {
+      sendApiError(res, 500, 'GENIE_INSTALL_FAILED', err instanceof Error ? err.message : String(err));
+    }
+  });
+
+  app.delete('/api/mcp/install/genie', async (req, res) => {
+    if (!isLocalSameOrigin(req, getResolvedPort())) {
+      return res.status(403).json({ error: 'cross-origin request rejected' });
+    }
+    try {
+      await uninstallGenieMcp(CODEX_MCP_NAME);
+      res.json({ ok: true });
+    } catch (err) {
+      sendApiError(res, 500, 'GENIE_UNINSTALL_FAILED', err instanceof Error ? err.message : String(err));
     }
   });
 

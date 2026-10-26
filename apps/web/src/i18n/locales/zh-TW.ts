@@ -814,6 +814,13 @@ export const zhTW: Dict = {
   "settings.mcpCodexUninstallSuccess": "已從 Codex 移除。",
   "settings.mcpCodexBusy": "處理中…",
   "settings.mcpCodexInstallError": "操作失敗：{error}",
+  'settings.mcpGenieOneClickInstall': 'Install in Genie CLI',
+  'settings.mcpGenieOneClickUninstall': 'Remove from Genie CLI',
+  'settings.mcpGenieOneClickUnavailable': 'Genie CLI not found on PATH — install Genie or paste the snippet manually.',
+  'settings.mcpGenieInstallSuccess': 'Installed. Restart Genie to load the new server.',
+  'settings.mcpGenieUninstallSuccess': 'Removed from Genie CLI.',
+  'settings.mcpGenieBusy': 'Working…',
+  'settings.mcpGenieInstallError': 'Operation failed: {error}',
   "settings.mcpRestartNote": "新增 server 後，請重新啟動程式設計 agent。",
   "settings.mcpRestartDetail":
     "大部分編輯器只在啟動時載入 MCP server。在 Cursor / VS Code / Antigravity / Windsurf 中，您可以從 Command Palette 執行「Developer: Reload Window」，無需完整重新啟動。Zed 與 Claude Code 則需要結束並重新開啟。",
