@@ -15,6 +15,7 @@ const ICON_EXT: Record<string, 'svg' | 'png'> = {
   amr: 'svg',
   claude: 'svg',
   codex: 'svg',
+  genie: 'svg',
   gemini: 'svg',
   opencode: 'svg',
   'cursor-agent': 'svg',
