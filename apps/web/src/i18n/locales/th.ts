@@ -788,6 +788,7 @@ export const th: Dict = {
   'settings.mcpInstructionCli': 'รันคำสั่งนี้ใน terminal ของคุณ',
   'settings.mcpMethodToml': 'การตั้งค่า TOML',
   'settings.mcpInstructionCodex': 'เพิ่มตารางนี้ต่อท้าย {path} การตั้งค่าเดียวกันนี้ใช้ร่วมกันระหว่าง Codex CLI และส่วนขยาย Codex IDE',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'ติดตั้งด้วยคลิกเดียว',
   'settings.mcpInstructionCursor': 'คลิก "Install in Cursor" เพื่อติดตั้งพร้อมกล่องโต้ตอบขออนุมัติ หรือผสาน JSON นี้เข้ากับ {path}',
   'settings.mcpDeeplinkInstallCursor': 'ติดตั้งใน Cursor',

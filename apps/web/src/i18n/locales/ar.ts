@@ -788,6 +788,7 @@ export const ar: Dict = {
   'settings.mcpInstructionCli': 'شغّل هذا في الـ terminal لديك.',
   'settings.mcpMethodToml': 'إعداد TOML',
   'settings.mcpInstructionCodex': 'أضف هذا الجدول إلى {path}. يتم مشاركة الإعداد نفسه بين Codex CLI وامتداد Codex IDE.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'تثبيت بنقرة واحدة',
   'settings.mcpInstructionCursor': 'انقر على "Install in Cursor" للتثبيت عبر مربع حوار للموافقة، أو ادمج ملف JSON هذا في {path}.',
   'settings.mcpDeeplinkInstallCursor': 'التثبيت في Cursor',

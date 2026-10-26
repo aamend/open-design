@@ -788,6 +788,7 @@ export const ja: Dict = {
   'settings.mcpInstructionCli': 'ターミナルでこれを実行してください。',
   'settings.mcpMethodToml': 'TOML設定',
   'settings.mcpInstructionCodex': 'このテーブルを {path} に追記してください。同じ設定がCodex CLIとCodex IDE拡張機能で共有されます。',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'ワンクリックインストール',
   'settings.mcpInstructionCursor': '「Install in Cursor」をクリックして承認ダイアログ付きでインストールするか、このJSONを {path} にマージしてください。',
   'settings.mcpDeeplinkInstallCursor': 'Cursor にインストール',

@@ -788,6 +788,7 @@ export const fa: Dict = {
   'settings.mcpInstructionCli': 'این را در ترمینال خود اجرا کنید.',
   'settings.mcpMethodToml': 'پیکربندی TOML',
   'settings.mcpInstructionCodex': 'این جدول را به {path} اضافه کنید. همین پیکربندی بین Codex CLI و افزونه IDE Codex مشترک است.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'نصب با یک کلیک',
   'settings.mcpInstructionCursor': 'برای نصب با یک پنجره تأیید، روی «Install in Cursor» کلیک کنید، یا این JSON را در {path} ادغام کنید.',
   'settings.mcpDeeplinkInstallCursor': 'نصب در Cursor',

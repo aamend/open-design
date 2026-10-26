@@ -8228,6 +8228,7 @@ function MediaProvidersSection({
 type McpClientId =
   | 'claude'
   | 'codex'
+  | 'genie'
   | 'cursor'
   | 'kiro'
   | 'vscode'
@@ -8472,6 +8473,21 @@ function IntegrationsSection() {
           '%USERPROFILE%\\.codex\\config.toml',
         );
         return t('settings.mcpInstructionCodex', { path });
+      },
+      buildSnippet: (info) => `[mcp_servers.open-design]\ncommand = ${JSON.stringify(info.command)}\nargs = ${JSON.stringify(info.args)}${buildCodexEnvToml(info)}`,
+      buildSnippetLang: () => 'toml',
+    },
+    {
+      id: 'genie',
+      label: 'Genie CLI',
+      buildMethod: () => t('settings.mcpMethodToml'),
+      buildInstruction: (info) => {
+        const path = homeConfigPath(
+          info.platform,
+          '~/.genie/config.toml',
+          '%USERPROFILE%\\.genie\\config.toml',
+        );
+        return t('settings.mcpInstructionGenie', { path });
       },
       buildSnippet: (info) => `[mcp_servers.open-design]\ncommand = ${JSON.stringify(info.command)}\nargs = ${JSON.stringify(info.args)}${buildCodexEnvToml(info)}`,
       buildSnippetLang: () => 'toml',

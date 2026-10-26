@@ -788,6 +788,7 @@ export const tr: Dict = {
   'settings.mcpInstructionCli': 'Bunu terminalinizde çalıştırın.',
   'settings.mcpMethodToml': 'TOML yapılandırması',
   'settings.mcpInstructionCodex': 'Bu tabloyu {path} dosyasına ekleyin. Aynı yapılandırma Codex CLI ile Codex IDE uzantısı arasında paylaşılır.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'Tek tıkla kurulum',
   'settings.mcpInstructionCursor': 'Onay iletişim kutusuyla kurmak için "Cursor\'a Kur"a tıklayın veya bu JSON\'u {path} dosyasıyla birleştirin.',
   'settings.mcpDeeplinkInstallCursor': 'Cursor\'a Kur',

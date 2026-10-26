@@ -788,6 +788,7 @@ export const ru: Dict = {
   'settings.mcpInstructionCli': 'Выполните это в терминале.',
   'settings.mcpMethodToml': 'Конфигурация TOML',
   'settings.mcpInstructionCodex': 'Добавьте эту таблицу в {path}. Одна и та же конфигурация используется совместно Codex CLI и расширением Codex для IDE.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'Установка в один клик',
   'settings.mcpInstructionCursor': 'Нажмите «Install in Cursor», чтобы установить с диалогом подтверждения, или объедините этот JSON с {path}.',
   'settings.mcpDeeplinkInstallCursor': 'Установить в Cursor',

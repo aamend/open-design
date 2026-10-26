@@ -788,6 +788,7 @@ export const ko: Dict = {
   'settings.mcpInstructionCli': '터미널에서 이것을 실행하세요.',
   'settings.mcpMethodToml': 'TOML 설정',
   'settings.mcpInstructionCodex': '이 테이블을 {path}에 추가하세요. 동일한 설정이 Codex CLI와 Codex IDE 확장 프로그램 간에 공유됩니다.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': '원클릭 설치',
   'settings.mcpInstructionCursor': '"Install in Cursor"를 클릭하여 승인 대화상자와 함께 설치하거나, 이 JSON을 {path}에 병합하세요.',
   'settings.mcpDeeplinkInstallCursor': 'Cursor에 설치',

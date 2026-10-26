@@ -788,6 +788,7 @@ export const esES: Dict = {
   'settings.mcpInstructionCli': 'Ejecuta esto en tu terminal.',
   'settings.mcpMethodToml': 'Configuración TOML',
   'settings.mcpInstructionCodex': 'Añade esta tabla a {path}. La misma configuración se comparte entre el CLI de Codex y la extensión de Codex para el IDE.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'Instalación con un clic',
   'settings.mcpInstructionCursor': 'Haz clic en «Install in Cursor» para instalar con un cuadro de diálogo de aprobación, o fusiona este JSON en {path}.',
   'settings.mcpDeeplinkInstallCursor': 'Instalar en Cursor',

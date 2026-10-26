@@ -788,6 +788,7 @@ export const hu: Dict = {
   'settings.mcpInstructionCli': 'Futtasd ezt a terminálodban.',
   'settings.mcpMethodToml': 'TOML konfiguráció',
   'settings.mcpInstructionCodex': 'Fűzd hozzá ezt a táblát a következőhöz: {path}. Ugyanazt a konfigurációt használja a Codex CLI és a Codex IDE-kiegészítő.',
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   'settings.mcpMethodOneClick': 'Egykattintásos telepítés',
   'settings.mcpInstructionCursor': 'Kattints az „Install in Cursor” gombra a jóváhagyási párbeszédpanellel történő telepítéshez, vagy egyesítsd ezt a JSON-t a következővel: {path}.',
   'settings.mcpDeeplinkInstallCursor': 'Telepítés a Cursorba',
