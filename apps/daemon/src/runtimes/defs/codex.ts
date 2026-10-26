@@ -128,7 +128,7 @@ const GPT_5_5_SERVICE_TIER_OPTIONS: RuntimeModelOption[] = [
 // remain unavailable unless they are one of the explicit OpenDesign
 // capabilities below. `OD_TOOL_TOKEN` stays in the environment channel rather
 // than being copied into argv, process listings, or Codex config files.
-const CODEX_SHELL_ENVIRONMENT_INCLUDE_KEYS = [
+export const CODEX_SHELL_ENVIRONMENT_INCLUDE_KEYS = [
   'PATH',
   'HOME',
   'USER',
