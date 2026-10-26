@@ -97,7 +97,7 @@ That workflow is open and extensible. OpenDesign is licensed under Apache 2.0 an
 | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ Supported | `od mcp install claude` |
 | [Claude Desktop](https://claude.ai/download) | ✅ Supported¹ | `od mcp install claude-desktop` |
 | [Codex CLI](https://github.com/openai/codex) | ✅ Supported | `od mcp install codex` |
-| [Genie CLI](https://docs.databricks.com/aws/en/genie-code/genie-code-cli) | ✅ Native runtime | `od mcp install genie` |
+| [Genie CLI](https://docs.databricks.com/aws/en/genie-code/genie-code-cli) | ✅ Supported | `od mcp install genie` |
 | [DeepSeek Reasonix](https://github.com/esengine/DeepSeek-Reasonix) | ✅ Supported | `od mcp install reasonix` |
 | [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | ✅ Native runtime | `od agent setup deepseek-harness` |
 | [Raven](https://github.com/EverMind-AI/Raven) | ✅ Supported | `od mcp install raven` |
