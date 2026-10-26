@@ -33,6 +33,7 @@ import path from 'node:path';
 export const AGENT_SLUGS = [
   'claude',
   'codex',
+  'genie',
   'reasonix',
   'raven',
   'cursor',
@@ -170,6 +171,21 @@ export function planAgentInstall(
         kind: 'cli',
         slug,
         bin: 'codex',
+        addArgv: [
+          'mcp', 'add', serverName,
+          ...envFlags(spec.env, '--env'),
+          '--', spec.command, ...spec.args,
+        ],
+        removeArgv: ['mcp', 'remove', serverName],
+        getArgv: ['mcp', 'get', serverName],
+      };
+    case 'genie':
+      // Genie is a Codex fork and shares the same `genie mcp add/remove/get`
+      // argv surface as `codex mcp add/remove/get`.
+      return {
+        kind: 'cli',
+        slug,
+        bin: 'genie',
         addArgv: [
           'mcp', 'add', serverName,
           ...envFlags(spec.env, '--env'),
