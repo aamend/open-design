@@ -782,6 +782,7 @@ export const zhCN: Dict = {
   "settings.mcpMethodToml": "TOML 配置",
   "settings.mcpInstructionCodex":
     "将以下配置追加到 {path}。Codex CLI 与 Codex IDE 扩展共享同一配置。",
+  'settings.mcpInstructionGenie': 'Append this table to {path}. Genie reads this on startup — restart your Genie session after saving.',
   "settings.mcpMethodOneClick": "一键安装",
   "settings.mcpInstructionCursor":
     '点击"在 Cursor 中安装"以通过确认对话框安装，或将此 JSON 合并到 {path}。',
