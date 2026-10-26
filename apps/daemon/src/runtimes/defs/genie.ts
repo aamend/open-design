@@ -171,7 +171,7 @@ function writeGenieRunProfile(genieHome: string, name: string, profile: string):
 
 export const genieAgentDef = {
   id: GENIE_AGENT_ID,
-  name: 'Genie Code',
+  name: 'Genie CLI',
   bin: 'genie',
   versionArgs: ['--version'],
   // Genie has no model-listing command. The model normally comes from the
